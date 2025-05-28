@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Informasi khusus</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      margin: 0;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+      background-attachment: fixed;
+    }
+    .container {
+      max-width: 900px;
+      margin: 40px auto;
+      background: rgba(255,255,255,0.98);
+      border-radius: 18px;
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
+      padding: 32px 24px 24px 24px;
+      backdrop-filter: blur(2px);
+    }
+    h1, h2, h3 {
+      text-align: center;
+      color: #2c3e50;
+      letter-spacing: 1px;
+      margin-bottom: 18px;
+    }
+    .welcome {
+      text-align: center;
+      font-size: 1.3em;
+      color: #2980b9;
+      margin-bottom: 32px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+    }
+    .nav {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+    }
+    .btn {
+      padding: 10px 24px;
+      border: none;
+      border-radius: 8px;
+      background: linear-gradient(90deg, #2980b9 60%, #6dd5fa 100%);
+      color: #fff;
+      cursor: pointer;
+      font-size: 16px;
+      box-shadow: 0 2px 8px #0001;
+      transition: background 0.2s, transform 0.2s;
+      margin-bottom: 8px;
+    }
+    .btn.active, .btn:hover {
+      background: linear-gradient(90deg, #1c5d85 60%, #2980b9 100%);
+      transform: translateY(-2px) scale(1.04);
+    }
+    table {
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+      margin-top:20px;
+      background: #f7fbff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 1px 6px #0001;
+    }
+    th, td {
+      border-bottom:1px solid #e3e3e3;
+      padding:12px 10px;
+      text-align:left;
+      vertical-align: middle;
+    }
+    th {
+      background:#eaf6ff;
+      color: #2980b9;
+      font-weight: 600;
+      border-top: 1px solid #e3e3e3;
+    }
+    tr:last-child td {
+      border-bottom: none;
+    }
+    tr:nth-child(even) {
+      background: #f2faff;
+    }
+    img, video {
+      border-radius: 6px;
+      max-width: 140px;
+      max-height: 90px;
+      display: block;
+      margin: 0 auto;
+      box-shadow: 0 2px 8px #0002;
+    }
+    .game-box {
+      max-width: 420px;
+      margin: 30px auto;
+      background: #eaf6ff;
+      border-radius: 12px;
+      padding: 24px 18px;
+      box-shadow: 0 2px 12px #0001;
+      text-align: center;
+    }
+    .game-box input[type="number"], .game-box input[type="text"] {
+      padding: 8px;
+      border-radius: 6px;
+      border: 1px solid #b2bec3;
+      width: 110px;
+      font-size: 1.1em;
+      margin-right: 8px;
+      margin-bottom: 8px;
+    }
+    .game-box button {
+      padding: 8px 18px;
+      border-radius: 6px;
+      border: none;
+      background: #2980b9;
+      color: #fff;
+      font-size: 1em;
+      cursor: pointer;
+      margin-top: 10px;
+      margin-bottom: 4px;
+    }
+    .game-box .result {
+      margin-top: 18px;
+      font-weight: bold;
+      color: #16a085;
+      min-height: 24px;
+    }
+    .game-menu {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+    }
+    .game-menu button {
+      background: #16a085;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 8px 16px;
+      font-size: 1em;
+      cursor: pointer;
+      margin-bottom: 6px;
+      transition: background 0.2s;
+    }
+    .game-menu button.active, .game-menu button:hover {
+      background: #2980b9;
+    }
+    @media (max-width: 700px) {
+      .container { padding: 10px 2vw; }
+      table, th, td { font-size: 14px; }
+      .btn { font-size: 14px; padding: 8px 12px; }
+      img, video { max-width: 90px; max-height: 60px; }
+      .game-box { padding: 16px 6px; }
+      .game-box input[type="number"], .game-box input[type="text"] { width: 90px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="app">
+    <h1>Informasi IPA</h1>
+    <div class="welcome">Selamat datang di situs kami</div>
+    <div class="nav">
+      <button class="btn" id="btn-foto" onclick="setKategori('foto')">Foto</button>
+      <button class="btn" id="btn-video" onclick="setKategori('video')">Video</button>
+      <button class="btn" id="btn-link" onclick="setKategori('link')">Link</button>
+      <button class="btn" id="btn-soal" onclick="setKategori('soal')">Soal & Jawaban</button>
+      <button class="btn" id="btn-game" onclick="showGameMenu()">Game</button>
+    </div>
+    <div id="data-table"></div>
+    <p style="text-align:center;color:#555;">Upload file ke Google Drive, lalu masukkan link dan data ke Google Sheets.<br>Data terbaru otomatis tampil di sini.</p>
+  </div>
+  <script>
+    const SHEET_API = "https://script.google.com/macros/s/AKfycbxkcvtyhKSH6s9-wdEU7PiS_OnEe1lnu7PNe21ti6iJMy9C5yvSSKEH4hLkk8-IFxI_/exec";
+    let kategoriAktif = 'foto';
+
+    // --- Beranda ---
+    function setKategori(kat) {
+      kategoriAktif = kat;
+      document.querySelectorAll('.btn').forEach(btn => btn.classList.remove('active'));
+      const btn = document.getElementById('btn-' + kat);
+      if (btn) btn.classList.add('active');
+      fetchData(kat);
+    }
+    function fetchData(kategori) {
+      if (kategori === 'game') return;
+      fetch(SHEET_API)
+        .then(r => r.json())
+        .then(data => {
+          let rows = data.filter(row => (row[0] || '').trim().toLowerCase() === kategori);
+          let html = `<h3>Data ${kategori === 'soal' ? 'Soal & Jawaban' : kategori.charAt(0).toUpperCase() + kategori.slice(1)}</h3>`;
+          html += `<table><tr><th>Judul</th><th>Deskripsi</th>`;
+          if (kategori === 'soal') html += `<th>Soal</th><th>Jawaban</th>`;
+          html += `<th>File/Link</th></tr>`;
+          if (rows.length === 0) {
+            html += `<tr><td colspan="${kategori === 'soal' ? 6 : 4}" style="text-align:center;color:#888;">Belum ada data.</td></tr>`;
+          }
+          rows.forEach(row => {
+            html += `<tr>
+              <td>${row[1] || ''}</td>
+              <td>${row[2] || ''}</td>`;
+            if (kategori === 'soal') {
+              html += `<td>${row[4] || ''}</td>
+                       <td>${row[5] || ''}</td>`;
+            }
+            if (row[3]) {
+              if (/\.(jpg|jpeg|png|gif)$/i.test(row[3])) {
+                html += `<td><img src="${row[3]}" alt="foto"></td>`;
+              } else if (/\.(mp4|webm|ogg)$/i.test(row[3])) {
+                html += `<td><video src="${row[3]}" controls></video></td>`;
+              } else {
+                html += `<td><a href="${row[3]}" target="_blank">Lihat</a></td>`;
+              }
+            } else {
+              html += `<td></td>`;
+            }
+            html += `</tr>`;
+          });
+          html += `</table>`;
+          document.getElementById('data-table').innerHTML = html;
+        });
+    }
+
+    // === GAME MENU ===
+    function showGameMenu() {
+      kategoriAktif = 'game';
+      document.querySelectorAll('.btn').forEach(btn => btn.classList.remove('active'));
+      const btn = document.getElementById('btn-game');
+      if (btn) btn.classList.add('active');
+      document.getElementById('data-table').innerHTML = `
+        <div class="game-menu">
+          <button onclick="openGame('tebakangka')">Tebak Angka</button>
+          <button onclick="openGame('kalkulator')">Kalkulator</button>
+          <button onclick="openGame('quiz')">Quiz IPA</button>
+          <button onclick="openGame('tebakkata')">Tebak Kata</button>
+          <button onclick="openGame('math')">Math Challenge</button>
+          <button onclick="openGame('memory')">Memory Game</button>
+          <button onclick="openGame('color')">Warna Acak</button>
+          <button onclick="openGame('typing')">Typing Speed</button>
+          <button onclick="openGame('suit')">Suit Jawa</button>
+          <button onclick="openGame('dice')">Lempar Dadu</button>
+        </div>
+        <div id="game-content"></div>
+      `;
+    }
+
+    // Buka game di tab/halaman baru
+    function openGame(game) {
+      window.open(window.location.pathname + '?game=' + game, '_blank');
+    }
+
+    // Deteksi jika ada parameter game di URL, tampilkan game langsung
+    document.addEventListener('DOMContentLoaded', function() {
+      const params = new URLSearchParams(window.location.search);
+      const game = params.get('game');
+      if (game) {
+        // Ganti seluruh body hanya dengan kontainer game
+        document.body.innerHTML = `<div id="game-page"></div>`;
+        // Panggil game sesuai parameter
+        if (game === 'tebakangka') showTebakAngka();
+        if (game === 'kalkulator') showKalkulator();
+        if (game === 'quiz') showQuiz();
+        if (game === 'tebakkata') showTebakKata();
+        if (game === 'math') showMathChallenge();
+        if (game === 'memory') showMemory();
+        if (game === 'color') showRandomColor();
+        if (game === 'typing') showTyping();
+        if (game === 'suit') showSuit();
+        if (game === 'dice') showDice();
+        return;
+      }
+      setKategori(kategoriAktif);
+    });
+
+    // Semua fungsi game: tulis ke #game-page jika ada, jika tidak ke #game-content
+    function getGameTarget() {
+      return document.getElementById('game-page') || document.getElementById('game-content');
+    }
+
+    // === GAME 1: Tebak Angka ===
+    function showTebakAngka() {
+      const target = getGameTarget();
+      target.innerHTML = `
+        <div class="game-box">
+          <h3>Game Tebak Angka</h3>
+          <p>Saya menyimpan angka rahasia antara <b>1</b> sampai <b>10</b>. Coba tebak!</p>
+          <input type="number" id="tebakan" min="1" max="10" placeholder="Tebak angka">
+          <button onclick="cekTebakan()">Tebak!</button>
+          <div class="result" id="game-result"></div>
+          <button onclick="showTebakAngka()" style="margin-top:12px;background:#16a085;">Main Lagi</button>
+        </div>
+      `;
+      window.angkaRahasia = Math.floor(Math.random() * 10) + 1;
+    }
+    function cekTebakan() {
+      const input = document.getElementById('tebakan');
+      const result = document.getElementById('game-result');
+      const angka = parseInt(input.value);
+      if (isNaN(angka) || angka < 1 || angka > 10) {
+        result.textContent = "Masukkan angka 1-10!";
+        result.style.color = "#e74c3c";
+        return;
+      }
+      if (angka === window.angkaRahasia) {
+        result.textContent = "Selamat! Tebakan kamu benar 🎉";
+        result.style.color = "#16a085";
+      } else if (angka < window.angkaRahasia) {
+        result.textContent = "Terlalu kecil!";
+        result.style.color = "#e67e22";
+      } else {
+        result.textContent = "Terlalu besar!";
+        result.style.color = "#e67e22";
+      }
+    }
+
+    // === GAME 2: Kalkulator Ilmiah ===
+    function showKalkulator() {
+      const target = getGameTarget();
+      target.innerHTML = `
+        <div class="game-box">
+          <h3>Kalkulator Ilmiah</h3>
+          <input type="number" id="angka1" placeholder="Angka 1" step="any">
+          <input type="number" id="angka2" placeholder="Angka 2 (opsional)" step="any"><br><br>
+          <button onclick="hitung('tambah')">+</button>
+          <button onclick="hitung('kurang')">-</button>
+          <button onclick="hitung('kali')">&times;</button>
+          <button onclick="hitung('bagi')">&divide;</button>
+          <button onclick="hitung('mod')">mod</button>
+          <button onclick="hitung('pangkat')">^</button>
+          <button onclick="hitung('akar')">√</button>
+          <button onclick="hitung('persen')">%</button>
+          <button onclick="hitung('pecahan')">Pecahan</button>
+          <button onclick="hitung('faktorial')">n!</button>
+          <button onclick="hitung('log')">log</button>
+          <button onclick="hitung('ln')">ln</button>
+          <button onclick="hitung('sin')">sin</button>
+          <button onclick="hitung('cos')">cos</button>
+          <button onclick="hitung('tan')">tan</button>
+          <button onclick="hitung('exp')">eˣ</button>
+          <button onclick="hitung('pi')">π</button>
+          <div class="result" id="kalkulator-hasil"></div>
+        </div>
+      `;
+    }
+    function hitung(operasi) {
+      const a = parseFloat(document.getElementById('angka1').value);
+      const b = parseFloat(document.getElementById('angka2').value);
+      const hasil = document.getElementById('kalkulator-hasil');
+      function toFraction(x) {
+        if (Number.isInteger(x)) return x + "/1";
+        let tolerance = 1.0E-6;
+        let h1=1, h2=0, k1=0, k2=1, b=x;
+        do {
+          let a = Math.floor(b);
+          let aux = h1; h1 = a*h1+h2; h2 = aux;
+          aux = k1; k1 = a*k1+k2; k2 = aux;
+          b = 1/(b-a);
+        } while (Math.abs(x-h1/k1) > x*tolerance);
+        return h1 + "/" + k1;
+      }
+      function faktorial(n) {
+        if (n < 0 || !Number.isInteger(n)) return NaN;
+        let res = 1;
+        for (let i = 2; i <= n; i++) res *= i;
+        return res;
+      }
+      let res = 0;
+      let error = null;
+      switch (operasi) {
+        case 'tambah': if (isNaN(a) || isNaN(b)) error = "Isi kedua angka!"; else res = a + b; break;
+        case 'kurang': if (isNaN(a) || isNaN(b)) error = "Isi kedua angka!"; else res = a - b; break;
+        case 'kali': if (isNaN(a) || isNaN(b)) error = "Isi kedua angka!"; else res = a * b; break;
+        case 'bagi': if (isNaN(a) || isNaN(b)) error = "Isi kedua angka!"; else res = b !== 0 ? a / b : "Tak hingga"; break;
+        case 'mod': if (isNaN(a) || isNaN(b)) error = "Isi kedua angka!"; else res = a % b; break;
+        case 'pangkat': if (isNaN(a) || isNaN(b)) error = "Isi kedua angka!"; else res = Math.pow(a, b); break;
+        case 'akar':
+          if (isNaN(a)) error = "Isi angka pertama!";
+          else if (a < 0) error = "Akar negatif tidak terdefinisi!";
+          else res = Math.sqrt(a);
+          break;
+        case 'persen':
+          if (isNaN(a) || isNaN(b)) error = "Isi kedua angka!";
+          else res = b !== 0 ? ((a / b) * 100).toFixed(4) + "%" : "Tak hingga";
+          break;
+        case 'pecahan':
+          if (isNaN(a)) error = "Isi angka pertama!";
+          else res = toFraction(a);
+          break;
+        case 'faktorial':
+          if (isNaN(a)) error = "Isi angka pertama!";
+          else if (a < 0 || !Number.isInteger(a)) error = "Faktorial hanya untuk bilangan bulat ≥ 0!";
+          else res = faktorial(a);
+          break;
+        case 'log':
+          if (isNaN(a)) error = "Isi angka pertama!";
+          else if (a <= 0) error = "Log hanya untuk angka > 0!";
+          else res = Math.log10(a);
+          break;
+        case 'ln':
+          if (isNaN(a)) error = "Isi angka pertama!";
+          else if (a <= 0) error = "Ln hanya untuk angka > 0!";
+          else res = Math.log(a);
+          break;
+        case 'sin':
+          if (isNaN(a)) error = "Isi angka pertama!";
+          else res = Math.sin(a * Math.PI / 180); // derajat
+          break;
+        case 'cos':
+          if (isNaN(a)) error = "Isi angka pertama!";
+          else res = Math.cos(a * Math.PI / 180);
+          break;
+        case 'tan':
+          if (isNaN(a)) error = "Isi angka pertama!";
+          else res = Math.tan(a * Math.PI / 180);
+          break;
+        case 'exp':
+          if (isNaN(a)) error = "Isi angka pertama!";
+          else res = Math.exp(a);
+          break;
+        case 'pi':
+          res = Math.PI;
+          break;
+        default:
+          error = "Operasi tidak dikenali!";
+      }
+      if (error) {
+        hasil.textContent = error;
+        hasil.style.color = "#e74c3c";
+      } else {
+        hasil.textContent = "Hasil: " + res;
+        hasil.style.color = "#16a085";
+      }
+    }
+
+    // === GAME 3: Quiz IPA Sederhana ===
+    function showQuiz() {
+      const target = getGameTarget();
+      target.innerHTML = `
+        <div class="game-box">
+          <h3>Quiz IPA</h3>
+          <div id="quiz-soal"></div>
+          <input type="text" id="jawaban-quiz" placeholder="Jawaban Anda">
+          <button onclick="cekQuiz()">Jawab</button>
+          <div class="result" id="quiz-result"></div>
+          <button onclick="showQuiz()" style="margin-top:12px;background:#16a085;">Soal Baru</button>
+        </div>
+      `;
+      window.quizSoal = [
+        { soal: "Apa rumus kimia air?", jawab: "H2O" },
+        { soal: "Planet terdekat dengan Matahari?", jawab: "Merkurius" },
+        { soal: "Alat untuk mengukur suhu?", jawab: "Termometer" }
+      ];
+      window.quizIndex = Math.floor(Math.random() * window.quizSoal.length);
+      document.getElementById('quiz-soal').textContent = window.quizSoal[window.quizIndex].soal;
+    }
+    function cekQuiz() {
+      const input = document.getElementById('jawaban-quiz').value.trim().toLowerCase();
+      const result = document.getElementById('quiz-result');
+      const kunci = window.quizSoal[window.quizIndex].jawab.toLowerCase();
+      if (input === "") {
+        result.textContent = "Masukkan jawaban!";
+        result.style.color = "#e74c3c";
+        return;
+      }
+      if (input === kunci) {
+        result.textContent = "Benar! 🎉";
+        result.style.color = "#16a085";
+      } else {
+        result.textContent = "Salah. Jawaban yang benar: " + window.quizSoal[window.quizIndex].jawab;
+        result.style.color = "#e67e22";
+      }
+    }
+
+    // === GAME 4: Tebak Kata ===
+    function showTebakKata() {
+      const target = getGameTarget();
+      const kataList = ["komputer", "bakteri", "energi", "fotosintesis", "oksigen"];
+      const kata = kataList[Math.floor(Math.random() * kataList.length)];
+      window.kataTebakan = kata;
+      let acak = kata.split('').sort(() => Math.random() - 0.5).join('');
+      target.innerHTML = `
+        <div class="game-box">
+          <h3>Tebak Kata</h3>
+          <p>Susun huruf berikut menjadi kata IPA: <b>${acak}</b></p>
+          <input type="text" id="jawab-kata" placeholder="Jawaban">
+          <button onclick="cekTebakKata()">Jawab</button>
+          <div class="result" id="kata-result"></div>
+          <button onclick="showTebakKata()" style="margin-top:12px;background:#16a085;">Soal Baru</button>
+        </div>
+      `;
+    }
+    function cekTebakKata() {
+      const input = document.getElementById('jawab-kata').value.trim().toLowerCase();
+      const result = document.getElementById('kata-result');
+      if (input === window.kataTebakan) {
+        result.textContent = "Benar!";
+        result.style.color = "#16a085";
+      } else {
+        result.textContent = "Salah. Jawaban: " + window.kataTebakan;
+        result.style.color = "#e67e22";
+      }
+    }
+
+    // === GAME 5: Math Challenge ===
+    function showMathChallenge() {
+      const target = getGameTarget();
+      const a = Math.floor(Math.random() * 20) + 1;
+      const b = Math.floor(Math.random() * 20) + 1;
+      window.mathJawab = a + b;
+      target.innerHTML = `
+        <div class="game-box">
+          <h3>Math Challenge</h3>
+          <p>Berapakah hasil dari <b>${a} + ${b}</b>?</p>
+          <input type="number" id="jawab-math" placeholder="Jawaban">
+          <button onclick="cekMath()">Jawab</button>
+          <div class="result" id="math-result"></div>
+          <button onclick="showMathChallenge()" style="margin-top:12px;background:#16a085;">Soal Baru</button>
+        </div>
+      `;
+    }
+    function cekMath() {
+      const input = parseInt(document.getElementById('jawab-math').value);
+      const result = document.getElementById('math-result');
+      if (input === window.mathJawab) {
+        result.textContent = "Benar!";
+        result.style.color = "#16a085";
+      } else {
+        result.textContent = "Salah. Jawaban: " + window.mathJawab;
+        result.style.color = "#e67e22";
+      }
+    }
+
+    // === GAME 6: Memory Game (Simple) ===
+    function showMemory() {
+      const target = getGameTarget();
+      const items = ["🍎", "🍌", "🍇", "🍎", "🍌", "🍇"];
+      let shuffled = items.sort(() => Math.random() - 0.5);
+      target.innerHTML = `
+        <div class="game-box">
+          <h3>Memory Game</h3>
+          <p>Cari pasangan emoji yang sama!</p>
+          <div id="memory-board" style="display:flex;flex-wrap:wrap;justify-content:center;gap:8px;"></div>
+          <div class="result" id="memory-result"></div>
+        </div>
+      `;
+      let board = document.getElementById('memory-board');
+      board.innerHTML = '';
+      shuffled.forEach((item, i) => {
+        let btn = document.createElement('button');
+        btn.textContent = "❓";
+        btn.style.width = "40px";
+        btn.style.height = "40px";
+        btn.style.fontSize = "1.5em";
+        btn.onclick = function() { revealMemory(i, btn, shuffled); };
+        board.appendChild(btn);
+      });
+      window.memoryState = {opened: [], matched: [], items: shuffled};
+    }
+    function revealMemory(idx, btn, shuffled) {
+      if (window.memoryState.matched.includes(idx) || window.memoryState.opened.includes(idx)) return;
+      btn.textContent = shuffled[idx];
+      window.memoryState.opened.push(idx);
+      if (window.memoryState.opened.length === 2) {
+        let [a, b] = window.memoryState.opened;
+        setTimeout(() => {
+          if (shuffled[a] === shuffled[b]) {
+            window.memoryState.matched.push(a, b);
+            if (window.memoryState.matched.length === shuffled.length) {
+              document.getElementById('memory-result').textContent = "Selamat! Semua pasangan ditemukan!";
+            }
+          } else {
+            document.querySelectorAll('#memory-board button')[a].textContent = "❓";
+            document.querySelectorAll('#memory-board button')[b].textContent = "❓";
+          }
+          window.memoryState.opened = [];
+        }, 600);
+      }
+    }
+
+    // === GAME 7: Warna Acak ===
+    function showRandomColor() {
+      const target = getGameTarget();
+      target.innerHTML = `
+        <div class="game-box">
+          <h3>Warna Acak</h3>
+          <div id="color-box" style="width:100px;height:100px;margin:16px auto;border-radius:12px;background:#eee;"></div>
+          <button onclick="acakWarna()">Acak Warna</button>
+        </div>
+      `;
+    }
+    function acakWarna() {
+      const color = '#'+Math.floor(Math.random()*16777215).toString(16);
+      document.getElementById('color-box').style.background = color;
+    }
+
+    // === GAME 8: Typing Speed ===
+    function showTyping() {
+      const target = getGameTarget();
+      const kata = ["ilmu", "pengetahuan", "alam", "eksperimen", "mikroskop"];
+      const soal = kata[Math.floor(Math.random() * kata.length)];
+      target.innerHTML = `
+        <div class="game-box">
+          <h3>Typing Speed</h3>
+          <p>Ketik kata berikut secepat mungkin:</p>
+          <div style="font-size:1.2em;font-weight:bold;margin-bottom:8px;">${soal}</div>
+          <input type="text" id="typing-input" placeholder="Ketik di sini">
+          <button onclick="cekTyping('${soal}')">Cek</button>
+          <div class="result" id="typing-result"></div>
+        </div>
+      `;
+      window.typingStart = Date.now();
+    }
+    function cekTyping(kata) {
+      const input = document.getElementById('typing-input').value.trim();
+      const result = document.getElementById('typing-result');
+      if (input === kata) {
+        const waktu = ((Date.now() - window.typingStart)/1000).toFixed(2);
+        result.textContent = "Benar! Waktu: " + waktu + " detik";
+        result.style.color = "#16a085";
+      } else {
+        result.textContent = "Salah!";
+        result.style.color = "#e67e22";
+      }
+    }
+
+    // === GAME 9: Suit Jawa ===
+    function showSuit() {
+      const target = getGameTarget();
+      target.innerHTML = `
+        <div class="game-box">
+          <h3>Suit Jawa</h3>
+          <button onclick="mainSuit('gajah')">Gajah</button>
+          <button onclick="mainSuit('orang')">Orang</button>
+          <button onclick="mainSuit('semut')">Semut</button>
+          <div class="result" id="suit-result"></div>
+        </div>
+      `;
+    }
+    function mainSuit(pilihan) {
+      const lawan = ["gajah", "orang", "semut"][Math.floor(Math.random()*3)];
+      let hasil = "";
+      if (pilihan === lawan) hasil = "Seri!";
+      else if (
+        (pilihan === "gajah" && lawan === "orang") ||
+        (pilihan === "orang" && lawan === "semut") ||
+        (pilihan === "semut" && lawan === "gajah")
+      ) hasil = "Menang!";
+      else hasil = "Kalah!";
+      document.getElementById('suit-result').textContent = `Kamu: ${pilihan} | Lawan: ${lawan} → ${hasil}`;
+    }
+
+    // === GAME 10: Lempar Dadu ===
+    function showDice() {
+      const target = getGameTarget();
+      target.innerHTML = `
+        <div class="game-box">
+          <h3>Lempar Dadu</h3>
+          <div id="dice-box" style="font-size:2.5em;margin:16px;">🎲</div>
+          <button onclick="lemparDadu()">Lempar!</button>
+          <div class="result" id="dice-result"></div>
+        </div>
+      `;
+    }
+    function lemparDadu() {
+      const angka = Math.floor(Math.random()*6)+1;
+      document.getElementById('dice-box').textContent = angka;
+      document.getElementById('dice-result').textContent = "Angka dadu: " + angka;
+    }
+  </script>
+</body>
+</html>
